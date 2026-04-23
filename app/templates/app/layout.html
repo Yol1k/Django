@@ -1,0 +1,60 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/content/bootstrap.min.js' %}"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Свои Новости</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+</head>
+<body>
+    <header id="main-header">
+        <div class="header-top">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'app/content/логотип.jpg' %}" alt="Логотип" class="site-logo">
+            </a>
+            <h1>Свои Новости: Патриотический портал</h1>
+        </div>
+
+        <nav class="navbar navbar-inverse header-nav">
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        {% if not user.is_authenticated %}
+
+                            <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                            <li><a href="{% url 'login' %}">Авторизация</a></li>
+
+                        {% else %}
+                            <li><a href="{% url 'home' %}">Главная</a></li>
+                            <li><a href="{% url 'blogs' %}">Новостные блоги</a></li>
+                            <li><a href="{% url 'forums' %}">Форумы</a></li>
+                            <li><a href="{% url 'about' %}">О портале</a></li>
+                            <li><a href="{% url 'resources' %}">Полезные ресурсы</a></li>
+                            <li><a href="{% url 'pool' %}">Обратная связь</a></li>
+                            <li><a href="{% url 'videopost' %}">Видео</a></li>
+                            <li><a href="{% url 'logout' %}">Выйти</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- <img src="{% static 'app/content/сво.jpg' %}" alt="СВО" class="img-left">
+    <img src="{% static 'app/content/путин.jpg' %}" alt="Путин" class="img-right"> -->
+
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ year }} - Новостной патриотический портал «Свои Новости»</p>
+    </footer>
+
+</body>
+</html>

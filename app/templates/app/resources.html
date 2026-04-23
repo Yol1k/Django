@@ -1,0 +1,32 @@
+﻿{% extends "app/layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-section">
+    <h2>{{ title }}</h2>
+    <p class="intro-text">
+        На этой странице собраны полезные интернет-ресурсы по политической и общественно-аналитической тематике.
+    </p>
+</div>
+
+<div class="content-section">
+    <h3>Полезные ресурсы</h3>
+
+    <ul>
+
+        <li>
+            <a href="https://www.rbc.ru/politics/" target="_blank">РБК: Политика</a><br>
+            <span>Оперативные политические новости, глубокая аналитика и интервью от ведущего российского делового медиа.</span>
+        </li>
+        <li>
+            <a href="https://www.kommersant.ru/vlast" target="_blank">Журнал "Коммерсантъ Власть"</a><br>
+            <span>Объективный анализ, эксклюзивные комментарии о важнейших событиях во внутренней и внешней политике.</span>
+        </li>
+        <li>
+            <a href="https://tass.ru/politika" target="_blank">ТАСС: Политика</a><br>
+            <span>Официальные заявления, государственные новости и важнейшие сообщения от крупнейшего информационного агентства.</span>
+        </li>
+
+    </ul>
+</div>
+{% endblock %}

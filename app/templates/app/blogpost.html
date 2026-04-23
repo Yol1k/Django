@@ -1,0 +1,66 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2 class="post-title"> {{post.title}} </h2>
+
+{% if post.image and post.image != '/media/temp.jpg' %}
+
+<img src="{{ post.image.url }}" class="kartinko"/>
+
+{% endif %}
+
+<p class="post-content"> {{post.content|linebreaksbr}} </p>
+
+<p>
+    <a href="{% url 'blogs' %}" class="go-back">
+        Назад
+    </a>
+</p>
+
+{% if user.is_authenticated %}
+
+<h3>Добавить комментарий</h3>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="comment-form-group">
+        {{form.as_p}}
+        <button type="submit" class="save btn btn-default">
+            Отправить комментарий
+        </button>
+    </div>
+
+</form>
+
+{% else %}
+
+<h3 class="auth-notice">
+    Для добавления комментария, пожалуйста, авторизуйтесь
+    <a href="{% url 'login' %}" class="login">
+        Авторизоваться
+    </a>
+</h3>
+
+{% endif %}
+
+<div class="comments-list">
+    {% for comment in comments %}
+
+    <div class="comment-item">
+        <div class="comment-header">
+            <span class="comment-author">{{comment.author}}</span>
+            <span class="comment-date">{{comment.date}}</span>
+        </div>
+        <div class="comment-body">
+            <p class="comment-text">
+                {{comment.text|linebreaksbr}}
+            </p>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
