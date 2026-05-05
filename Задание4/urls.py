@@ -36,7 +36,12 @@ urlpatterns = [
     path('registration/', views.registration, name= 'registration'),
     path('blogpost/<int:parametr>/', views.blogpost, name='blogpost'),
     path('newpost/', views.newpost, name='newpost'),
-    path('videopost/', views.videopost, name='videopost')
+    path('videopost/', views.videopost, name='videopost'),
+    path('category/', views.category, name='category'),
+    path('category/<int:parametr>/', views.category_elements, name='category_elements'),
+    path('category/element/<int:parametr>/', views.element, name='element'),
+    path('category/add_category/', views.newcategory, name='newcategory'),
+    path('category/add_element/', views.newelement, name='newelement'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

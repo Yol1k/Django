@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>Задание4</Name>
     <RootNamespace>Задание4</RootNamespace>
-    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup>
@@ -61,7 +61,12 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="app\templates\app\blogpost.html" />
+    <Content Include="app\templates\app\category.html" />
+    <Content Include="app\templates\app\category_elements.html" />
+    <Content Include="app\templates\app\element.html" />
     <Content Include="app\templates\app\forums.html" />
+    <Content Include="app\templates\app\newcategory.html" />
+    <Content Include="app\templates\app\newelement.html" />
     <Content Include="app\templates\app\newpost.html">
       <SubType>Code</SubType>
     </Content>

@@ -1,0 +1,23 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+<h2 class="page-title">{{ title }}</h2>
+
+<div class="category-grid">
+    {% for category in categories %}
+    <div class="category-card">
+        <h3 class="category-title">
+            <a href="{% url 'category_elements' parametr=category.id %}">
+                {{ category.title }}
+            </a>
+        </h3>
+        <p class="category-description">{{ category.description|truncatewords:20 }}</p>
+        <a href="{% url 'category_elements' parametr=category.id %}" class="btn-category">
+            Смотреть товары →
+        </a>
+    </div>
+    {% empty %}
+    <p>Категории пока не добавлены.</p>
+    {% endfor %}
+</div>
+{% endblock %}

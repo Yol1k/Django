@@ -67,3 +67,55 @@ class Comment(models.Model):
         verbose_name_plural = "Комментарии"
 
 admin.site.register(Comment)
+
+class Category(models.Model):
+
+    title = models.CharField(max_length=100,verbose_name="Название категории каталога", unique = True)
+    
+    description = models.TextField(verbose_name="Описание категории каталога")
+    
+    def get_absolute_url(self):
+
+        return reverse("category", args=[str(self.id)])
+
+    def __str__(self):
+
+       return self.title
+
+    class Meta:
+        db_table = "Categories"
+        ordering = ["title"]
+        verbose_name = "Категории каталога"
+        verbose_name_plural = "Категории каталога"
+
+admin.site.register(Category)
+
+class Element(models.Model):
+
+    title = models.CharField(max_length=100, verbose_name="Название элемента каталога")
+    
+    description = models.TextField(verbose_name="Краткое описание элемента каталога")
+
+    content = models.TextField(verbose_name="Полное описание элемента каталога")
+
+    price = models.DecimalField(verbose_name="Цена элемента каталога", max_digits=8, decimal_places=2)
+
+    image = models.FileField(default = "temp.jpg", verbose_name = "Путь к картинке элемента каталога")
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Категория каталога")
+    
+    def get_absolute_url(self):
+
+        return reverse("element", args=[str(self.id)])
+
+    def __str__(self):
+
+       return self.title
+
+    class Meta:
+        db_table = "Elements"
+        ordering = ["title"]
+        verbose_name = "Элемент каталога"
+        verbose_name_plural = "Элемент каталога"
+
+admin.site.register(Element)

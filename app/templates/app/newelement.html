@@ -1,0 +1,18 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h3>Создать элемент категории</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="element-form">
+        {{elementform.as_p}}
+        <button type="submit" class="save btn btn-default">
+            Создать элемент категории
+        </button>
+    </div>
+
+</form>
+
+{% endblock %}

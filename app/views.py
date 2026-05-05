@@ -1,4 +1,5 @@
 ﻿from datetime import datetime
+from functools import cache
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from datetime import datetime
@@ -6,9 +7,9 @@ from .forms import SiteReviewForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.db import models
-from .models import Blog
+from .models import Blog, Category, Element
 from .models import Comment
-from .forms import CommentForm, BlogForm
+from .forms import CommentForm, BlogForm, ElementForm, CategoryForm
 
 def home(request):
     """Рендерит домашнюю страницу."""
@@ -236,5 +237,106 @@ def videopost(request):
             'title':'Видео',
             'message':'Страница с видео.',
             'year':datetime.now().year,
+        }
+    )
+
+def category(request):
+
+    assert isinstance(request, HttpRequest)
+
+    categories = Category.objects.all()
+
+    return render(
+        request,
+        'app/category.html',
+        {
+            'title':'Категории',
+            'categories': categories,
+            'year': datetime.now().year, 
+        }
+    )
+
+def category_elements(request, parametr):
+
+    category = Category.objects.get(id=parametr)
+    elements = Element.objects.filter(category=category)
+    return render(
+        request,
+        'app/category_elements.html',
+        {
+            'title': f'Товары в категории: {category.title}',
+            'category': category,
+            'elements': elements,
+            'year': datetime.now().year,
+        }
+    )
+
+def element(request, parametr):
+    element = Element.objects.get(id=parametr)
+    return render(
+        request,
+        'app/element.html', 
+        {
+            'title': element.title,
+            'element': element,
+            'year': datetime.now().year,
+        }
+    )
+
+def newcategory(request):
+
+    assert isinstance(request, HttpRequest) 
+
+    if request.method == "POST":
+
+        categoryform = CategoryForm(request.POST)
+
+        if categoryform.is_valid():
+
+            category_f = categoryform.save(commit=False)
+
+            category_f.save()
+
+            return redirect('category')
+
+    else:
+        categoryform = CategoryForm()
+
+    return render(
+        request,
+        'app/newcategory.html',
+        {
+            'categoryform': categoryform,
+            'title': 'Создать новую категорию',
+            'year': datetime.now().year, 
+        }
+    )
+
+def newelement(request):
+
+    assert isinstance(request, HttpRequest) 
+
+    if request.method == "POST":
+
+        elementform = ElementForm(request.POST, request.FILES)
+
+        if elementform.is_valid():
+
+            element_f = elementform.save(commit=False)
+
+            element_f.save()
+
+            return redirect('category')
+
+    else:
+        elementform = ElementForm()
+
+    return render(
+        request,
+        'app/newelement.html',
+        {
+            'elementform': elementform,
+            'title': 'Создать новый элемент категории',
+            'year': datetime.now().year, 
         }
     )

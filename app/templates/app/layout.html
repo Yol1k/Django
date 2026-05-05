@@ -37,6 +37,13 @@
                             <li><a href="{% url 'resources' %}">Полезные ресурсы</a></li>
                             <li><a href="{% url 'pool' %}">Обратная связь</a></li>
                             <li><a href="{% url 'videopost' %}">Видео</a></li>
+                            <li><a href="{% url 'category' %}">Каталог</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'newcategory' %}">Добавить категорию</a></li>
+                            <li>
+                                <a href="{% url 'newelement' %}">Добавить товар</a>
+                            </li>
+                                {% endif %}
                             <li><a href="{% url 'logout' %}">Выйти</a></li>
                         {% endif %}
                     </ul>

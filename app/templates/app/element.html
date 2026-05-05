@@ -1,0 +1,39 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="element-detail">
+    <div class="breadcrumbs">
+        <a href="{% url 'category' %}">Каталог</a> /
+        <a href="{% url 'category_elements' parametr=element.category.id %}">
+            {{ element.category.title }}
+        </a> /
+        <span>{{ element.title }}</span>
+    </div>
+
+    <div class="element-container">
+        <div class="element-image">
+            <img src="{{ element.image.url }}" alt="{{ element.title }}">
+        </div>
+
+        <div class="element-info">
+            <h1 class="element-title">{{ element.title }}</h1>
+            <p class="element-category">
+                Категория:
+                <a href="{% url 'category_elements' parametr=element.category.id %}">
+                    {{ element.category.title }}
+                </a>
+            </p>
+            <div class="element-price">{{ element.price }} ₽</div>
+        </div>
+        <div class="element-description-full">
+            <h3>Полное описание</h3>
+            <p>{{ element.content }}</p>
+        </div>
+    </div>
+    <a href="{% url 'category_elements' parametr=element.category.id %}" class="back-link">
+        ← Вернуться к товарам в категории «{{ element.category.title }}»
+    </a>
+</div>
+
+{% endblock %}

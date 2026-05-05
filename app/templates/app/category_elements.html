@@ -1,0 +1,21 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+<h2 class="page-title">{{ title }}</h2>
+
+<div class="items-grid">
+    {% for element in elements %}
+    <div class="item-card">
+        {% if element.image %}
+        <img src="{{ element.image.url }}" alt="{{ element.title }}" class="item-image">
+        {% endif %}
+        <h3>{{ element.title }}</h3>
+        <p class="item-short-desc">{{ element.description }}</p>
+        <p class="item-price">{{ element.price }} руб.</p>
+        <a href="{% url 'element' parametr=element.id %}" class="btn-detail">
+            Подробнее
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
